@@ -32,6 +32,7 @@ app.post("/", (req, res) => {
 	} = req.body;
 
 	var latex_code;
+	inputPath = path.resolve(__dirname, "static/resume.tex");
 	fs.readFile(inputPath, "utf8", (err, data) => {
 		latex_code = data.split("\n");
 		new_latex_code = [];
