@@ -161,15 +161,19 @@ addExperienceButton.addEventListener("click", function () {
 		var currDiv = document.getElementById(currDivId);
 		var newLine = document.createElement("p");
 		newLine.id = "e" + currExp + "l" + expBullets[currDivId];
-		var newBullet = document.createElement("input");
+		var newBullet = document.createElement("textarea");
 		newBullet.type = "text";
 		newBullet.placeholder = "Enter bullet";
+		newBullet.rows = 2;
+		newBullet.cols = 80;
 		newBullet.id = "e" + currExp + "b" + expBullets[currDivId];
 		newLine.appendChild(
 			document.createTextNode(
 				"Bullet " + (expBullets[currDivId] + 1) + ": "
 			)
 		);
+		newLine.appendChild(document.createElement("br"));
+		newLine.appendChild(document.createElement("br"));
 		newLine.appendChild(newBullet);
 		currDiv.appendChild(newLine);
 		expBullets[currDivId]++;
@@ -315,15 +319,19 @@ addProjectButton.addEventListener("click", function () {
 		var currDiv = document.getElementById(currDivId);
 		var newLine = document.createElement("p");
 		newLine.id = "p" + currProj + "l" + projBullets[currDivId];
-		var newBullet = document.createElement("input");
+		var newBullet = document.createElement("textarea");
 		newBullet.type = "text";
 		newBullet.placeholder = "Enter bullet";
+		newBullet.rows = 2;
+		newBullet.cols = 80;
 		newBullet.id = "p" + currProj + "b" + projBullets[currDivId];
 		newLine.appendChild(
 			document.createTextNode(
 				"Bullet " + (projBullets[currDivId] + 1) + ": "
 			)
 		);
+		newLine.appendChild(document.createElement("br"));
+		newLine.appendChild(document.createElement("br"));
 		newLine.appendChild(newBullet);
 		currDiv.appendChild(newLine);
 		projBullets[currDivId]++;
