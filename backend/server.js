@@ -26,7 +26,7 @@ app.post("/", (req, res) => {
     proj_array,
     skill_array,
   } = req.body;
-  pdfPath = path.resolve(__dirname, "static/new_resume_" + timestamp + ".pdf");
+  pdfPath = path.resolve(__dirname, "static/resume" + "" + ".pdf");
   res.sendFile(pdfPath);
 
   return;
