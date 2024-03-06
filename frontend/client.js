@@ -442,10 +442,8 @@ generateButton.addEventListener("click", async function (e) {
     body["proj_array"].push(projectObject);
   }
 
-  console.log(body["proj_array"]);
-
   try {
-    const response = await fetch("http://localhost:3000/", {
+    const response = await fetch("https://latex-builder.onrender.com", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
