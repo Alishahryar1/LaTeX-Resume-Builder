@@ -4,6 +4,7 @@ const path = require("path");
 const fs = require("fs");
 const { exec } = require("child_process");
 const cors = require("cors");
+const axios = require("axios");
 
 const app = express();
 const uuid = require("uuid");
@@ -235,62 +236,36 @@ app.post("/", (req, res) => {
 			}
 		}
 		latex_code = new_latex_code.join("\n");
-		console.log("Latex code generated. Writing to file.");
+		console.log("Latex code generated. Sending to Compile.");
 		var timestamp = uuid.v4();
-		var outputPath = path.resolve(
-			__dirname,
-			"static/new_resume_" + timestamp + ".tex"
-		);
-		fs.writeFile(outputPath, latex_code, (err) => {
-			console.log("Latex code written to file.");
-			exec(
-				"tectonic.exe static/new_resume_" + timestamp + ".tex",
-				(err, stdout, stderr) => {
-					if (err) {
-						console.error(err);
-						return;
-					}
-					console.log("Latex code compiled.");
-					pdfPath = path.resolve(
-						__dirname,
-						"static/new_resume_" + timestamp + ".pdf"
-					);
+		//encodeUricomponent latex code
+		latex_code = encodeURIComponent(latex_code);
+		var pdfUrl =
+			"https://latexonline.cc/compile?text=" +
+			latex_code +
+			"&download=resume.pdf";
+		axios.get(pdfUrl, { responseType: "arraybuffer" }).then((response) => {
+			const pdfPath = path.resolve(__dirname, `static/${timestamp}.pdf`);
+			fs.writeFile(pdfPath, new Buffer.from(response.data), (err) => {
+				if (err) {
+					console.error(err);
+					res.status(500).send("Error writing file");
+				} else {
 					res.sendFile(pdfPath, function (err) {
 						if (err) {
 							console.error(err);
-							return;
-						}
-						fs.readdir(
-							path.resolve(__dirname, "static"),
-							(err, files) => {
+						} else {
+							fs.unlink(pdfPath, function (err) {
 								if (err) {
 									console.error(err);
-									return;
+								} else {
+									console.log("File deleted");
 								}
-								files.forEach((file) => {
-									if (file.includes(timestamp.toString())) {
-										fs.unlink(
-											path.resolve(
-												__dirname,
-												"static",
-												file
-											),
-											(err) => {
-												if (err) {
-													console.error(err);
-													return;
-												}
-											}
-										);
-									}
-								});
-								console.log("Intermediate files" + " deleted.");
-							}
-						);
-						return;
+							});
+						}
 					});
 				}
-			);
+			});
 		});
 	});
 });

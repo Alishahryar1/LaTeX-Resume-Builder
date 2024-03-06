@@ -457,7 +457,7 @@ generateButton.addEventListener("click", async function (e) {
 	}
 
 	try {
-		const response = await fetch("https://latex-builder.onrender.com/", {
+		const response = await fetch("http://localhost:3000/", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
@@ -468,7 +468,6 @@ generateButton.addEventListener("click", async function (e) {
 		if (!response.ok) {
 			throw new Error(`HTTP error! status: ${response.status}`);
 		}
-
 		const blob = await response.blob();
 		const objectURL = URL.createObjectURL(blob);
 
