@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>LateX Resume Generator</title>
+        <style>
+            body {
+                display: flex;
+                height: 100vh;
+                margin: 0;
+                overflow: hidden;
+            }
+
+            .content-container {
+                width: 50%;
+                overflow-y: auto;
+            }
+
+            .pdf-container {
+                width: 50%;
+                overflow-y: auto;
+            }
+
+            /* Overall dark theme styling */
+            body {
+            background-color: #121212; /* Dark background */
+            color: #ffffff; /* Light text color for contrast */
+            font-family: Arial, sans-serif; /* Modern font */
+            }
+
+            .content-container,
+            .pdf-container {
+            scrollbar-color: #424242 #121212; /* Custom scrollbars for dark theme */
+            }
+
+            /* Style for the details and summary tags */
+            details {
+            background-color: #1e1e1e; /* Slightly lighter background for sections */
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            }
+
+            summary {
+            color: #76ff03; /* Light green color for titles */
+            cursor: pointer;
+            }
+
+            /* Input fields styling */
+            input[type=text],
+            textarea {
+            background-color: #333333;
+            color: #ffffff;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            }
+
+            input[type=text]::placeholder,
+            textarea::placeholder {
+            color: #b3b3b3;
+            }
+
+            /* Buttons styling */
+            button {
+            background-color: #333333; /* Darker background for buttons */
+            color: #ffffff;
+            border: none;
+            padding: 10px 20px;
+            margin-right: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            }
+
+            button:hover {
+            background-color: #555555; /* Slightly lighter on hover */
+            }
+
+            /* Specific style for the generate button */
+            #generateButton {
+            background-color: #4CAF50; /* Green background */
+            font-size: 16px;
+            font-weight: bold;
+            }
+
+            #generateButton:hover {
+            background-color: #66bb6a; /* Lighter green on hover */
+            }
+
+        </style>
+    </head>
+    <body>
+        <div class="pdf-container">
+            <embed id="pdfViewer" type="application/pdf" width="100%" height="100%">
+        </div>
+        <div class="content-container">
+            <details class="details-container">
+                <summary><h2 style="display: inline;">Details</h2></summary>
+                <p>Name: <input id = "name" type="text" placeholder="Enter your name" style="width: 300px;"></p>
+                <p>Phone: <input id = "phone" type="text" placeholder="Enter your phone number"  style="width: 300px;"></p>
+                <p>Email: <input id = "email" type="text" placeholder="Enter your email" style="width: 300px;"></p>
+                <p>LinkedIn: <input id = "linkedin" type="text" placeholder="Enter your linkedin address without https://" style="width: 300px;"></p>
+                <p>GitHub: <input id = "github" type="text" placeholder="Enter your github address without https://" style="width: 300px;"></p>
+                <p>Portfolio: <input id = "portfolio" type="text" placeholder="Enter your portfolio address without https://" style="width: 300px;"></p>
+            </details>
+            <details>
+                <summary><h2 style="display: inline;">Summary</h2></summary>
+                <p>Display Summary: <input type="checkbox" id="displaySummary" placeholder="Display summary"></p>
+                <p><textarea id = "summary" rows="4" cols="80" placeholder="Enter your summary here"></textarea></p>
+            </details>
+            <details>
+                <summary><h2 style="display: inline;">Education</h2></summary>
+                <div id="educationList"></div>
+                <p>
+                    <button id="addEducation">Add Education</button>
+                    <button id="deleteEducation">Delete Education</button>
+                </p>
+            </details>
+            <details>
+                <summary><h2 style="display: inline;">Experience</h2></summary>
+                <div id="experienceList"></div>
+                <p>
+                    <button id="addExperience">Add Experience</button>
+                    <button id="deleteExperience">Delete Experience</button>
+                </p>
+            </details>
+            <details>
+                <summary><h2 style="display: inline;">Projects</h2></summary>
+                <div id="projectList"></div>
+                <p>
+                    <button id="addProject">Add Project</button>
+                    <button id="deleteProject">Delete Project</button>
+                </p>
+            </details>
+            <details>
+                <summary><h2 style="display: inline;">Skills</h2></summary>
+                <div id="skillsList"></div>
+                <p>
+                    <button id="addSkill">Add Skill</button>
+                    <button id="deleteSkill">Delete Skill</button>
+                </p>
+            </details>
+        </div>
+        <div>
+            <button id="generateButton">Generate</button>
+        </div>
+        <script src="client.js"></script>
+    </body>
+</html>
