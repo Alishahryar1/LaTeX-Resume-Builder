@@ -30,10 +30,9 @@ app.post("/", (req, res) => {
 		proj_array,
 		skill_array,
 	} = req.body;
-	res.send("Running");
 
-	return;
 	var inputPath = path.resolve(__dirname, "static/resume.tex");
+	return;
 	var latex_code;
 	fs.readFile(inputPath, "utf8", (err, data) => {
 		latex_code = data.split("\n");
