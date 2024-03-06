@@ -31,7 +31,7 @@ app.post("/", (req, res) => {
 		skill_array,
 	} = req.body;
 
-	pdfPath = path.resolve(__dirname, "static/new_resume.pdf");
+	pdfPath = path.resolve(__dirname, "static/resume.pdf");
 	res.sendFile(pdfPath);
 	return;
 	var latex_code;
