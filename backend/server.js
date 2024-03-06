@@ -11,9 +11,8 @@ const uuid = require("uuid");
 app.use(bodyParser.json());
 app.use(cors());
 
-app.post("/download", (req, res) => {
-	//send back text that says running
-	res.send("Running");
+app.get("/", (req, res) => {
+	res.send("Server is running");
 });
 
 app.post("/", (req, res) => {
