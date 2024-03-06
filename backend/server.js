@@ -26,6 +26,10 @@ app.post("/", (req, res) => {
     proj_array,
     skill_array,
   } = req.body;
+  pdfPath = path.resolve(__dirname, "static/new_resume_" + timestamp + ".pdf");
+  res.sendFile(pdfPath);
+
+  return;
   var inputPath = path.resolve(__dirname, "static/resume.tex");
   var latex_code;
   fs.readFile(inputPath, "utf8", (err, data) => {
