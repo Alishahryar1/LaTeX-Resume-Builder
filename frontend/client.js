@@ -393,7 +393,7 @@ generateButton.addEventListener("click", async function (e) {
 		allTextFields[i].value2 = allTextFields[i].value;
 		latexCodeChars = ["\\", "{", "}", "&", "%", "$", "#", "_", "^", "~"];
 		for (let j = 0; j < latexCodeChars.length; j++) {
-			allTextFields[i].value2 = allTextFields[i].value2.replace(
+			allTextFields[i].value2 = allTextFields[i].value2.replaceAll(
 				latexCodeChars[j],
 				"\\" + latexCodeChars[j]
 			);
