@@ -15,10 +15,12 @@ addEducationButton.addEventListener("click", function () {
 	newName.type = "text";
 	newName.placeholder = "Enter institute name";
 	newName.id = "educationName" + educationCount;
+	newName.classList.add("myText");
 	var newLoc = document.createElement("input");
 	newLoc.type = "text";
 	newLoc.placeholder = "Enter location";
 	newLoc.id = "educationLoc" + educationCount;
+	newLoc.classList.add("myText");
 	newLine.appendChild(document.createTextNode("Institute Name: "));
 	newLine.appendChild(newName);
 	newLine.appendChild(document.createTextNode(" Location: "));
@@ -29,10 +31,12 @@ addEducationButton.addEventListener("click", function () {
 	var newEndM = document.createElement("input");
 	newEndM.type = "text";
 	newEndM.placeholder = "Enter end month";
+	newEndM.classList.add("myText");
 	newEndM.id = "educationEndM" + educationCount;
 	var newEndY = document.createElement("input");
 	newEndY.type = "text";
 	newEndY.placeholder = "Enter end year";
+	newEndY.classList.add("myText");
 	newEndY.id = "educationEndY" + educationCount;
 	newLine.appendChild(document.createTextNode("End Month: "));
 	newLine.appendChild(newEndM);
@@ -45,6 +49,7 @@ addEducationButton.addEventListener("click", function () {
 	newDesc.placeholder = "Enter description";
 	newDesc.rows = 4;
 	newDesc.cols = 50;
+	newDesc.classList.add("myText");
 	newDesc.id = "educationDesc" + educationCount;
 	newLine.appendChild(document.createTextNode("Description: "));
 	newLine.appendChild(document.createElement("br"));
@@ -94,10 +99,12 @@ addExperienceButton.addEventListener("click", function () {
 	var newTitle = document.createElement("input");
 	newTitle.type = "text";
 	newTitle.placeholder = "Enter job title";
+	newTitle.classList.add("myText");
 	newTitle.id = "experienceTitle" + experienceCount;
 	var newCompany = document.createElement("input");
 	newCompany.type = "text";
 	newCompany.placeholder = "Enter company name";
+	newCompany.classList.add("myText");
 	newCompany.id = "experienceCompany" + experienceCount;
 	newLine.appendChild(document.createTextNode("Job Title: "));
 	newLine.appendChild(newTitle);
@@ -109,6 +116,7 @@ addExperienceButton.addEventListener("click", function () {
 	var newStartM = document.createElement("input");
 	newStartM.type = "text";
 	newStartM.placeholder = "Enter start month";
+	newStartM.classList.add("myText");
 	newStartM.id = "experienceStartM" + experienceCount;
 	var newStartY = document.createElement("input");
 	newStartY.type = "text";
@@ -124,10 +132,12 @@ addExperienceButton.addEventListener("click", function () {
 	var newEndM = document.createElement("input");
 	newEndM.type = "text";
 	newEndM.placeholder = "Enter end month";
+	newEndM.classList.add("myText");
 	newEndM.id = "experienceEndM" + experienceCount;
 	var newEndY = document.createElement("input");
 	newEndY.type = "text";
 	newEndY.placeholder = "Enter end year";
+	newEndY.classList.add("myText");
 	newEndY.id = "experienceEndY" + experienceCount;
 	newLine.appendChild(document.createTextNode("End Month: "));
 	newLine.appendChild(newEndM);
@@ -139,6 +149,7 @@ addExperienceButton.addEventListener("click", function () {
 	var newLoc = document.createElement("input");
 	newLoc.type = "text";
 	newLoc.placeholder = "Enter location";
+	newLoc.classList.add("myText");
 	newLoc.id = "experienceLoc" + experienceCount;
 	newLine.appendChild(document.createTextNode("Location: "));
 	newLine.appendChild(newLoc);
@@ -166,6 +177,7 @@ addExperienceButton.addEventListener("click", function () {
 		newBullet.placeholder = "Enter bullet";
 		newBullet.rows = 2;
 		newBullet.cols = 80;
+		newBullet.classList.add("myText");
 		newBullet.id = "e" + currExp + "b" + expBullets[currDivId];
 		newLine.appendChild(
 			document.createTextNode(
@@ -224,6 +236,7 @@ addSkillButton.addEventListener("click", function () {
 	var newSkill = document.createElement("input");
 	newSkill.type = "text";
 	newSkill.placeholder = "Enter skill name (e.g. Languages): ";
+	newSkill.classList.add("myText");
 	newSkill.id = "skillName" + skillCount;
 	newSkill.style = "width: 300px;";
 	newLine.appendChild(document.createTextNode("Skill type: "));
@@ -236,6 +249,7 @@ addSkillButton.addEventListener("click", function () {
 		"Enter skills as a comma seperated list (e.g. Python, Java, C++)";
 	skills.rows = 4;
 	skills.cols = 50;
+	skills.classList.add("myText");
 	skills.id = "skills" + skillCount;
 	newLine.appendChild(document.createTextNode("Skills: "));
 	newLine.appendChild(document.createElement("br"));
@@ -277,11 +291,13 @@ addProjectButton.addEventListener("click", function () {
 	newTitle.type = "text";
 	newTitle.placeholder = "Enter project title";
 	newTitle.name = "title";
+	newTitle.classList.add("myText");
 	newTitle.id = "projectTitle" + projectCount;
 	var newLink = document.createElement("input");
 	newLink.type = "text";
 	newLink.name = "link";
 	newLink.placeholder = "Enter link without https://";
+	newLink.classList.add("myText");
 	newLink.id = "projectLink" + projectCount;
 	newLine.appendChild(document.createTextNode("Title: "));
 	newLine.appendChild(newTitle);
@@ -295,6 +311,7 @@ addProjectButton.addEventListener("click", function () {
 		"Enter tech used as a comma seperated list (e.g. Python, Java, C++)";
 	newTech.rows = 4;
 	newTech.cols = 50;
+	newTech.classList.add("myText");
 	newTech.id = "projectTech" + projectCount;
 	newLine.appendChild(document.createTextNode("Tech Used: "));
 	newLine.appendChild(document.createElement("br"));
@@ -324,6 +341,7 @@ addProjectButton.addEventListener("click", function () {
 		newBullet.placeholder = "Enter bullet";
 		newBullet.rows = 2;
 		newBullet.cols = 80;
+		newBullet.classList.add("myText");
 		newBullet.id = "p" + currProj + "b" + projBullets[currDivId];
 		newLine.appendChild(
 			document.createTextNode(
@@ -370,21 +388,27 @@ var generateButton = document.getElementById("generateButton");
 generateButton.addEventListener("click", async function (e) {
 	e.preventDefault();
 
+	allTextFields = document.getElementsByClassName("myText");
+	for (let i = 0; i < allTextFields.length; i++) {
+		allTextFields[i].value2 = allTextFields[i].value;
+		latexCodeChars = ["\\", "{", "}", "&", "%", "$", "#", "_", "^", "~"];
+		for (let j = 0; j < latexCodeChars.length; j++) {
+			allTextFields[i].value2 = allTextFields[i].value2.replace(
+				latexCodeChars[j],
+				"\\" + latexCodeChars[j]
+			);
+		}
+	}
+
 	var body = {
-		name: document.getElementById("name").value.replaceAll("%", "\\%"),
-		email: document.getElementById("email").value.replaceAll("%", "\\%"),
-		phone: document.getElementById("phone").value,
-		linkedin: document
-			.getElementById("linkedin")
-			.value.replaceAll("%", "\\%"),
-		github: document.getElementById("github").value.replaceAll("%", "\\%"),
-		portfolio: document
-			.getElementById("portfolio")
-			.value.replaceAll("%", "\\% "),
+		name: document.getElementById("name").value2,
+		email: document.getElementById("email").value2,
+		phone: document.getElementById("phone").value2,
+		linkedin: document.getElementById("linkedin").value2,
+		github: document.getElementById("github").value2,
+		portfolio: document.getElementById("portfolio").value2,
 		display_summary: document.getElementById("displaySummary").checked,
-		summary: document
-			.getElementById("summary")
-			.value.replaceAll("%", "\\%"),
+		summary: document.getElementById("summary").value2,
 		education_array: [],
 		exp_array: [],
 		proj_array: [],
@@ -394,15 +418,11 @@ generateButton.addEventListener("click", async function (e) {
 	var educationList = document.getElementById("educationList").childNodes;
 	for (let i = 0; i < educationList.length; i++) {
 		var educationObject = {
-			name: document
-				.getElementById("educationName" + i)
-				.value.replaceAll("%", "\\%"),
-			location: document.getElementById("educationLoc" + i).value,
-			description: document
-				.getElementById("educationDesc" + i)
-				.value.replaceAll("%", "\\%"),
-			end_month: document.getElementById("educationEndM" + i).value,
-			end_year: document.getElementById("educationEndY" + i).value,
+			name: document.getElementById("educationName" + i).value2,
+			location: document.getElementById("educationLoc" + i).value2,
+			description: document.getElementById("educationDesc" + i).value2,
+			end_month: document.getElementById("educationEndM" + i).value2,
+			end_year: document.getElementById("educationEndY" + i).value2,
 			graduated: document.getElementById("educationGrad" + i).checked,
 		};
 		body["education_array"].push(educationObject);
@@ -411,12 +431,8 @@ generateButton.addEventListener("click", async function (e) {
 	var skillList = document.getElementById("skillsList").childNodes;
 	for (let i = 0; i < skillList.length; i++) {
 		var skillObject = {
-			name: document
-				.getElementById("skillName" + i)
-				.value.replaceAll("%", "\\%"),
-			skills: document
-				.getElementById("skills" + i)
-				.value.replaceAll("%", "\\%"),
+			name: document.getElementById("skillName" + i).value2,
+			skills: document.getElementById("skills" + i).value2,
 		};
 		body["skill_array"].push(skillObject);
 	}
@@ -424,20 +440,18 @@ generateButton.addEventListener("click", async function (e) {
 	var experienceList = document.getElementById("experienceList").childNodes;
 	for (let i = 0; i < experienceList.length; i++) {
 		var experienceObject = {
-			title: document.getElementById("experienceTitle" + i).value,
-			company: document.getElementById("experienceCompany" + i).value,
-			start_month: document.getElementById("experienceStartM" + i).value,
-			start_year: document.getElementById("experienceStartY" + i).value,
-			end_month: document.getElementById("experienceEndM" + i).value,
-			end_year: document.getElementById("experienceEndY" + i).value,
-			location: document.getElementById("experienceLoc" + i).value,
+			title: document.getElementById("experienceTitle" + i).value2,
+			company: document.getElementById("experienceCompany" + i).value2,
+			start_month: document.getElementById("experienceStartM" + i).value2,
+			start_year: document.getElementById("experienceStartY" + i).value2,
+			end_month: document.getElementById("experienceEndM" + i).value2,
+			end_year: document.getElementById("experienceEndY" + i).value2,
+			location: document.getElementById("experienceLoc" + i).value2,
 			bullets: [],
 		};
 		for (let j = 0; j < expBullets[experienceList[i].id]; j++) {
 			experienceObject["bullets"].push(
-				document
-					.getElementById("e" + i + "b" + j)
-					.value.replaceAll("%", "\\%")
+				document.getElementById("e" + i + "b" + j).value2
 			);
 		}
 
@@ -448,16 +462,14 @@ generateButton.addEventListener("click", async function (e) {
 	for (let i = 0; i < projectList.length; i++) {
 		var project = projectList[i];
 		var projectObject = {
-			title: document.getElementById("projectTitle" + i).value,
-			tech: document.getElementById("projectTech" + i).value,
-			link: document.getElementById("projectLink" + i).value,
+			title: document.getElementById("projectTitle" + i).value2,
+			tech: document.getElementById("projectTech" + i).value2,
+			link: document.getElementById("projectLink" + i).value2,
 			bullets: [],
 		};
 		for (let j = 0; j < projBullets[project.id]; j++) {
 			projectObject["bullets"].push(
-				document
-					.getElementById("p" + i + "b" + j)
-					.value.replaceAll("%", "\\%")
+				document.getElementById("p" + i + "b" + j).value2
 			);
 		}
 
@@ -465,7 +477,8 @@ generateButton.addEventListener("click", async function (e) {
 	}
 
 	try {
-		const response = await fetch("https://latex-builder.onrender.com/", {
+		link = "https://latex-builder.onrender.com/";
+		const response = await fetch(link, {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
@@ -477,7 +490,7 @@ generateButton.addEventListener("click", async function (e) {
 			throw new Error(`HTTP error! status: ${response.status}`);
 		}
 		const blob = await response.blob();
-		const objectURL = URL.createObjectURL(blob);
+		const objectURL = await URL.createObjectURL(blob);
 
 		document.getElementById("pdfViewer").src = objectURL;
 	} catch (error) {
