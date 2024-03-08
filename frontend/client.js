@@ -121,6 +121,7 @@ addExperienceButton.addEventListener("click", function () {
 	var newStartY = document.createElement("input");
 	newStartY.type = "text";
 	newStartY.placeholder = "Enter start year";
+	newStartY.classList.add("myText");
 	newStartY.id = "experienceStartY" + experienceCount;
 	newLine.appendChild(document.createTextNode("Start Month: "));
 	newLine.appendChild(newStartM);
