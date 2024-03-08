@@ -51,9 +51,10 @@ app.post("/", (req, res) => {
 	inputPath = path.resolve(__dirname, "static/resume.tex");
 	fs.readFile(inputPath, "utf8", (err, data) => {
 		var latex_code = data.split("\n");
-		new_latex_code = [];
+		var new_latex_code = [];
 		for (let i = 0; i < latex_code.length; i++) {
-			line = latex_code[i];
+			var line = latex_code[i];
+			var start;
 			if (line.includes("%Name")) {
 				new_latex_code.push(
 					String.raw`    \textbf{\Huge \scshape ` +
@@ -281,7 +282,6 @@ app.post("/", (req, res) => {
 							file.delete().then(() => {
 								console.log("File deleted from GCS");
 							});
-							// res.sendFile back pdf
 							res.sendFile(
 								path.resolve(
 									__dirname,
@@ -317,7 +317,6 @@ app.post("/", (req, res) => {
 					}
 				});
 		});
-		return;
 	});
 });
 
