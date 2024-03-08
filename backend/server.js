@@ -56,42 +56,60 @@ app.post("/", (req, res) => {
 			var line = latex_code[i];
 			var start;
 			if (line.includes("%Name")) {
+				if (name == "") {
+					continue;
+				}
 				new_latex_code.push(
 					String.raw`    \textbf{\Huge \scshape ` +
 						name +
 						String.raw` } \\ \vspace{1pt} %Name`
 				);
 			} else if (line.includes("%Email")) {
+				if (email == "") {
+					continue;
+				}
 				new_latex_code.push(
-					String.raw`    \href{mailto:` +
+					String.raw`    $|$ \href{mailto:` +
 						email +
 						String.raw`}{` +
 						email +
-						String.raw`} $|$ %Email`
+						String.raw`} %Email`
 				);
 			} else if (line.includes("%Phone")) {
+				if (phone == "") {
+					continue;
+				}
 				new_latex_code.push(
-					String.raw`    \small ` + phone + String.raw` $|$ %Phone`
+					String.raw`    \small ` + phone + String.raw` %Phone`
 				);
 			} else if (line.includes("%Linkedin")) {
+				if (linkedin == "") {
+					continue;
+				}
 				new_latex_code.push(
-					String.raw`    \href{https://` +
+					String.raw`    $|$ \href{https://` +
 						linkedin +
 						String.raw`}{` +
 						linkedin +
-						String.raw`} $|$ %Linkedin`
+						String.raw`} %Linkedin`
 				);
 			} else if (line.includes("%Github")) {
+				if (github == "") {
+					continue;
+				}
 				new_latex_code.push(
-					String.raw`    \href{https://` +
+					String.raw`    $|$ \href{https://` +
 						github +
 						String.raw`}{` +
 						github +
-						String.raw`} $|$ %Github`
+						String.raw`} %Github`
 				);
 			} else if (line.includes("%Portfolio")) {
+				if (portfolio == "") {
+					continue;
+				}
 				new_latex_code.push(
-					String.raw`    \href{https://` +
+					String.raw`    $|$ \href{https://` +
 						portfolio +
 						String.raw`}{Portfolio Website} %Portfolio`
 				);
