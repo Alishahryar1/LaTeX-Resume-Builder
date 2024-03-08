@@ -309,6 +309,9 @@ app.post("/", (req, res) => {
 									if (err) {
 										console.log(err);
 									}
+									console.log(
+										"PDF file generated for " + name
+									);
 									fs.unlink(
 										path.resolve(
 											__dirname,
