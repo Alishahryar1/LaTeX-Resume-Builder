@@ -477,7 +477,7 @@ generateButton.addEventListener("click", async function (e) {
 	}
 
 	try {
-		link = "https://latex-builder.onrender.com/";
+		link = process.env.link;
 		const response = await fetch(link, {
 			method: "POST",
 			headers: {
