@@ -2,10 +2,26 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const path = require("path");
 const fs = require("fs");
-const { exec } = require("child_process");
 const cors = require("cors");
 const axios = require("axios");
+require("dotenv").config();
+const { Storage } = require("@google-cloud/storage");
 
+const storage = new Storage({
+	credentials: {
+		type: process.env.type,
+		project_id: process.env.project_id,
+		private_key_id: process.env.private_key_id,
+		private_key: process.env.private_key.replace(/\\n/g, "\n"),
+		client_email: process.env.client_email,
+		client_id: process.env.client_id,
+		auth_uri: process.env.auth_uri,
+		token_uri: process.env.token_uri,
+		auth_provider_x509_cert_url: process.env.auth_provider_x509_cert_url,
+		client_x509_cert_url: process.env.client_x509_cert_url,
+		universe_domain: process.env.universe_domain,
+	},
+});
 const app = express();
 const uuid = require("uuid");
 
@@ -32,10 +48,9 @@ app.post("/", (req, res) => {
 		skill_array,
 	} = req.body;
 
-	var latex_code;
 	inputPath = path.resolve(__dirname, "static/resume.tex");
 	fs.readFile(inputPath, "utf8", (err, data) => {
-		latex_code = data.split("\n");
+		var latex_code = data.split("\n");
 		new_latex_code = [];
 		for (let i = 0; i < latex_code.length; i++) {
 			line = latex_code[i];
@@ -237,36 +252,72 @@ app.post("/", (req, res) => {
 		}
 		latex_code = new_latex_code.join("\n");
 		console.log("Latex code generated. Sending to Compile.");
-		var timestamp = uuid.v4();
-		//encodeUricomponent latex code
-		latex_code = encodeURIComponent(latex_code);
-		var pdfUrl =
-			"https://latexonline.cc/compile?text=" +
-			latex_code +
-			"&download=resume.pdf";
-		axios.get(pdfUrl, { responseType: "arraybuffer" }).then((response) => {
-			const pdfPath = path.resolve(__dirname, `static/${timestamp}.pdf`);
-			fs.writeFile(pdfPath, new Buffer.from(response.data), (err) => {
-				if (err) {
-					console.error(err);
-					res.status(500).send("Error writing file");
-				} else {
-					res.sendFile(pdfPath, function (err) {
-						if (err) {
-							console.error(err);
-						} else {
-							fs.unlink(pdfPath, function (err) {
-								if (err) {
-									console.error(err);
-								} else {
-									console.log("File deleted");
-								}
+		var resume_id = uuid.v4();
+		const bucket = storage.bucket("latex_resume_bucket");
+		const file = bucket.file(resume_id + ".tex");
+		file.save(latex_code, function (err) {
+			if (err) {
+				console.log(err);
+				return;
+			}
+			console.log("File saved to GCS");
+			texURL =
+				"https://storage.googleapis.com/latex_resume_bucket/" +
+				resume_id +
+				".tex";
+			pdfURL =
+				"https://latexonline.cc/compile?url=" +
+				texURL +
+				"&download=sample.pdf";
+			axios
+				.get(pdfURL, { responseType: "arraybuffer" })
+				.then((response) => {
+					fs.writeFile(
+						"static/" + resume_id + ".pdf",
+						new Buffer.from(response.data),
+						(err) => {
+							if (err) throw err;
+							console.log("PDF file saved");
+							file.delete().then(() => {
+								console.log("File deleted from GCS");
 							});
+							// res.sendFile back pdf
+							res.sendFile(
+								path.resolve(
+									__dirname,
+									"static/" + resume_id + ".pdf"
+								),
+								(err) => {
+									if (err) {
+										console.log(err);
+									}
+									fs.unlink(
+										path.resolve(
+											__dirname,
+											"static/" + resume_id + ".pdf"
+										),
+										(err) => {
+											if (err) {
+												console.log(err);
+											}
+										}
+									);
+								}
+							);
 						}
-					});
-				}
-			});
+					);
+				})
+				.catch((error) => {
+					if (error instanceof AggregateError) {
+						for (const err of error.errors) {
+							console.error(err);
+						}
+					} else {
+						console.error(error);
+					}
+				});
 		});
+		return;
 	});
 });
 

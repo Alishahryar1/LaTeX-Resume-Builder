@@ -465,13 +465,16 @@ generateButton.addEventListener("click", async function (e) {
 	}
 
 	try {
-		const response = await fetch("https://latex-builder.onrender.com/", {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-			},
-			body: JSON.stringify(body),
-		});
+		const response = await fetch(
+			"https://latexresumebuilder.netlify.app/",
+			{
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify(body),
+			}
+		);
 
 		if (!response.ok) {
 			throw new Error(`HTTP error! status: ${response.status}`);
