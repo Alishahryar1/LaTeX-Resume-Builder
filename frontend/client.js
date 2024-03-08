@@ -477,7 +477,7 @@ generateButton.addEventListener("click", async function (e) {
 	}
 
 	try {
-		link = "https://latexresumebuilder.netlify.app/";
+		link = "https://latex-builder.onrender.com/";
 		const response = await fetch(link, {
 			method: "POST",
 			headers: {
