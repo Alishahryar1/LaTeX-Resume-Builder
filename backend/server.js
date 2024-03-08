@@ -183,9 +183,9 @@ app.post("/", (req, res) => {
 							proj_array[j].link +
 							String.raw`}{\textbf{` +
 							proj_array[j].title +
-							String.raw`}} $|$ ` +
+							String.raw`}} $|$ \emph{` +
 							proj_array[j].tech +
-							String.raw`}{}`
+							String.raw`}}{}`
 					);
 					if (proj_array[j].bullets.length == 0) {
 						continue;
