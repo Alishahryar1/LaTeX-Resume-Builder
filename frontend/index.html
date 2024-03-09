@@ -82,6 +82,10 @@
             background-color: #4CAF50; /* Green background */
             font-size: 16px;
             font-weight: bold;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 100; /* Ensure the button is above other elements */
             }
 
             #generateButton:hover {
@@ -91,6 +95,9 @@
         </style>
     </head>
     <body>
+        <div>
+            <button id="generateButton">Generate</button>
+        </div>
         <div class="pdf-container">
             <embed id="pdfViewer" type="application/pdf" width="100%" height="100%">
         </div>
@@ -141,9 +148,6 @@
                     <button id="deleteSkill">Delete Skill</button>
                 </p>
             </details>
-        </div>
-        <div>
-            <button id="generateButton">Generate</button>
         </div>
         <script src="client.js"></script>
     </body>
