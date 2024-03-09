@@ -188,7 +188,7 @@ addExperienceButton.addEventListener("click", function () {
 		newLine.appendChild(document.createElement("br"));
 		newLine.appendChild(document.createElement("br"));
 		newLine.appendChild(newBullet);
-		currDiv.appendChild(newLine);
+		currDiv.insertBefore(newLine, currDiv.lastChild);
 		expBullets[currDivId]++;
 	});
 
@@ -352,7 +352,7 @@ addProjectButton.addEventListener("click", function () {
 		newLine.appendChild(document.createElement("br"));
 		newLine.appendChild(document.createElement("br"));
 		newLine.appendChild(newBullet);
-		currDiv.appendChild(newLine);
+		currDiv.insertBefore(newLine, currDiv.lastChild);
 		projBullets[currDivId]++;
 	});
 
@@ -479,7 +479,7 @@ generateButton.addEventListener("click", async function (e) {
 
 	try {
 		link = "https://latex-builder.onrender.com";
-		//link = "http://localhost:3000/";
+		// link = "http://localhost:3000/";
 		const response = await fetch(link, {
 			method: "POST",
 			headers: {
