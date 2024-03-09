@@ -295,7 +295,6 @@ app.post("/", (req, res) => {
 						"static/" + resume_id + ".pdf",
 						new Buffer.from(response.data),
 						(err) => {
-							if (err) throw err;
 							console.log("PDF file saved");
 							file.delete().then(() => {
 								console.log("File deleted from GCS");
@@ -329,13 +328,12 @@ app.post("/", (req, res) => {
 					);
 				})
 				.catch((error) => {
-					if (error instanceof AggregateError) {
-						for (const err of error.errors) {
-							console.error(err);
-						}
-					} else {
-						console.error(error);
-					}
+					console.log(
+						"Error occurred while compiling the LaTeX file"
+					);
+					res.status(500).send(
+						"Error occurred while compiling the LaTeX file"
+					);
 				});
 		});
 	});
