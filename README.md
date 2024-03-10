@@ -10,7 +10,7 @@ LaTeX Resume Builder is a web application that allows users to generate professi
 
 ## How It Works
 
-The application uses a Node.js backend to generate LaTeX code based on the user's input. This LaTeX code is then compiled into a PDF using Tectonic, a modernized, complete, self-contained TeX/LaTeX engine.
+The application uses a Node.js backend to generate LaTeX code based on the user's input. This LaTeX code is then compiled into a PDF using latexonline.cc, a modernized, complete, self-contained TeX/LaTeX engine.
 
 ## Deployment
 
@@ -18,7 +18,7 @@ The application is deployed at [https://latexresumebuilder.netlify.app/](https:/
 
 ## Local Development
 
-To run the application locally, you'll need to have Node.js and Tectonic installed on your machine.
+To run the application locally, you'll need an internet connection and Node.js installed on your machine.
 
 1. Clone the repository: `git clone https://github.com/username/repository.git`
 2. Navigate into the project directory: `cd repository`
