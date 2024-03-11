@@ -479,6 +479,7 @@ generateButton.addEventListener("click", async function (e) {
 	try {
 		const generateButton = document.getElementById("generateButton");
 		generateButton.innerText = "Compiling...";
+		generateButton.disabled = true;
 		link = "https://latex-builder.onrender.com";
 		// link = "http://localhost:3000/";
 		const response = await fetch(link, {
@@ -497,8 +498,10 @@ generateButton.addEventListener("click", async function (e) {
 
 		document.getElementById("pdfViewer").src = objectURL;
 		generateButton.innerText = "Generate";
+		generateButton.disabled = false;
 	} catch (error) {
 		console.error("Error:", error);
 		generateButton.innerText = "Generate";
+		generateButton.disabled = false;
 	}
 });
