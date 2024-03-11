@@ -319,7 +319,7 @@ app.post("/", (req, res) => {
 			}
 		}
 		latex_code = new_latex_code.join("\n");
-		console.log("Latex code generated.");
+		console.log("Tex file generated locally");
 		var resume_id = uuid.v4();
 		const bucket = storage.bucket("latex_resume_bucket");
 		const file = bucket.file(resume_id + ".tex");
@@ -345,6 +345,10 @@ app.post("/", (req, res) => {
 		try {
 			response = await getPDF(pdfURL);
 			console.log("Tex file compiled to PDF");
+		} catch (err) {
+			console.log("Error in compiling Tex to PDF");
+			res.status(500).send("");
+		} finally {
 			file.delete((err) => {
 				if (err) {
 					console.log(err);
@@ -352,10 +356,9 @@ app.post("/", (req, res) => {
 					console.log("Tex file deleted from GCS");
 				}
 			});
-		} catch (err) {
-			console.log("Error in compiling Tex to PDF");
-			res.status(500).send("");
-			return;
+			if (!response) {
+				return;
+			}
 		}
 
 		try {
@@ -375,6 +378,11 @@ app.post("/", (req, res) => {
 				path.resolve(__dirname, "static/" + resume_id + ".pdf")
 			);
 			console.log("PDF file sent back for client " + name);
+		} catch (err) {
+			console.log("Error in sending PDF back");
+			res.status(500).send("");
+			return;
+		} finally {
 			fs.unlink(
 				path.resolve(__dirname, "static/" + resume_id + ".pdf"),
 				(err) => {
@@ -385,10 +393,6 @@ app.post("/", (req, res) => {
 					}
 				}
 			);
-		} catch (err) {
-			console.log("Error in sending PDF back");
-			res.status(500).send("");
-			return;
 		}
 	});
 });
