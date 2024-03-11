@@ -48,8 +48,57 @@ app.post("/", (req, res) => {
 		skill_array,
 	} = req.body;
 
+	const sendFile = (path) => {
+		return new Promise((resolve, reject) => {
+			res.sendFile(path, (err) => {
+				if (err) {
+					reject(err);
+				} else {
+					resolve();
+				}
+			});
+		});
+	};
+
+	const writeFile = (path, data) => {
+		return new Promise((resolve, reject) => {
+			fs.writeFile(path, data, (err) => {
+				if (err) {
+					reject(err);
+				} else {
+					resolve();
+				}
+			});
+		});
+	};
+
+	const getPDF = (url) => {
+		return new Promise(async (resolve, reject) => {
+			try {
+				const response = await axios.get(url, {
+					responseType: "arraybuffer",
+				});
+				resolve(response);
+			} catch (err) {
+				reject(err);
+			}
+		});
+	};
+
+	const saveFile = (file, data) => {
+		return new Promise((resolve, reject) => {
+			file.save(data, (err) => {
+				if (err) {
+					reject(err);
+				} else {
+					resolve();
+				}
+			});
+		});
+	};
+
 	inputPath = path.resolve(__dirname, "static/resume.tex");
-	fs.readFile(inputPath, "utf8", (err, data) => {
+	fs.readFile(inputPath, "utf8", async (err, data) => {
 		var latex_code = data.split("\n");
 		var new_latex_code = [];
 		for (let i = 0; i < latex_code.length; i++) {
@@ -270,72 +319,69 @@ app.post("/", (req, res) => {
 			}
 		}
 		latex_code = new_latex_code.join("\n");
-		console.log("Latex code generated. Sending to Compile.");
+		console.log("Latex code generated.");
 		var resume_id = uuid.v4();
 		const bucket = storage.bucket("latex_resume_bucket");
 		const file = bucket.file(resume_id + ".tex");
-		file.save(latex_code, function (err) {
-			if (err) {
-				console.log(err);
-				return;
-			}
-			console.log("File saved to GCS");
-			texURL =
-				"https://storage.googleapis.com/latex_resume_bucket/" +
-				resume_id +
-				".tex";
-			pdfURL =
-				"https://latexonline.cc/compile?url=" +
-				texURL +
-				"&download=sample.pdf";
-			axios
-				.get(pdfURL, { responseType: "arraybuffer" })
-				.then((response) => {
-					fs.writeFile(
-						"static/" + resume_id + ".pdf",
-						new Buffer.from(response.data),
-						(err) => {
-							console.log("PDF file saved");
-							file.delete().then(() => {
-								console.log("File deleted from GCS");
-							});
-							res.sendFile(
-								path.resolve(
-									__dirname,
-									"static/" + resume_id + ".pdf"
-								),
-								(err) => {
-									if (err) {
-										console.log(err);
-									}
-									console.log(
-										"PDF file generated for " + name
-									);
-									fs.unlink(
-										path.resolve(
-											__dirname,
-											"static/" + resume_id + ".pdf"
-										),
-										(err) => {
-											if (err) {
-												console.log(err);
-											}
-										}
-									);
-								}
-							);
-						}
-					);
-				})
-				.catch((error) => {
-					console.log(
-						"Error occurred while compiling the LaTeX file"
-					);
-					res.status(500).send(
-						"Error occurred while compiling the LaTeX file"
-					);
-				});
-		});
+		texURL =
+			"https://storage.googleapis.com/latex_resume_bucket/" +
+			resume_id +
+			".tex";
+		pdfURL =
+			"https://latexonline.cc/compile?url=" +
+			texURL +
+			"&download=sample.pdf";
+
+		try {
+			await saveFile(file, latex_code);
+			console.log("Tex file saved to GCS");
+		} catch (err) {
+			console.log(err);
+		}
+
+		let response;
+		try {
+			response = await getPDF(pdfURL);
+			console.log("Tex file compiled to PDF");
+			file.delete((err) => {
+				if (err) {
+					console.log(err);
+				} else {
+					console.log("Tex file deleted from GCS");
+				}
+			});
+		} catch (err) {
+			console.log(err);
+		}
+
+		try {
+			await writeFile(
+				"static/" + resume_id + ".pdf",
+				new Buffer.from(response.data)
+			);
+			console.log("PDF file saved locally");
+		} catch (err) {
+			console.log(err);
+		}
+
+		try {
+			await sendFile(
+				path.resolve(__dirname, "static/" + resume_id + ".pdf")
+			);
+			console.log("PDF file sent back for client " + name);
+			fs.unlink(
+				path.resolve(__dirname, "static/" + resume_id + ".pdf"),
+				(err) => {
+					if (err) {
+						console.log(err);
+					} else {
+						console.log("PDF file deleted locally");
+					}
+				}
+			);
+		} catch (err) {
+			console.log(err);
+		}
 	});
 });
 
