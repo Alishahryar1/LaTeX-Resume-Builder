@@ -336,7 +336,9 @@ app.post("/", (req, res) => {
 			await saveFile(file, latex_code);
 			console.log("Tex file saved to GCS");
 		} catch (err) {
-			console.log(err);
+			console.log("Error in saving Tex to GCS");
+			res.status(500).send("");
+			return;
 		}
 
 		let response;
@@ -351,7 +353,9 @@ app.post("/", (req, res) => {
 				}
 			});
 		} catch (err) {
-			console.log(err);
+			console.log("Error in compiling Tex to PDF");
+			res.status(500).send("");
+			return;
 		}
 
 		try {
@@ -361,7 +365,9 @@ app.post("/", (req, res) => {
 			);
 			console.log("PDF file saved locally");
 		} catch (err) {
-			console.log(err);
+			console.log("Error in saving PDF locally");
+			res.status(500).send("");
+			return;
 		}
 
 		try {
@@ -380,7 +386,9 @@ app.post("/", (req, res) => {
 				}
 			);
 		} catch (err) {
-			console.log(err);
+			console.log("Error in sending PDF back");
+			res.status(500).send("");
+			return;
 		}
 	});
 });
