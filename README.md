@@ -20,7 +20,7 @@ The application is deployed at [https://latexresumebuilder.netlify.app/](https:/
 
 To run the application locally, you'll need an internet connection and Node.js installed on your machine.
 
-1. Clone the repository: `git clone https://github.com/Alishahryar1/LateX_Resume_Builder/edit/main/README.md`
+1. Clone the repository: `git clone https://github.com/Alishahryar1/LateX_Resume_Builder/`
 2. Navigate into the project directory: `cd repository`
 3. Install the dependencies: `npm install`
 4. Start the server: `node server.js`
